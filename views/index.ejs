@@ -1,0 +1,54 @@
+<%- include('partials/header.ejs')%>
+
+<div class="container-fluid w-75">
+  <br />
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <% if(allImages.length > 0) {%>
+        <h1 class="text-center">All Images</h1>
+        <% } else { %>
+        <h1 class="text-center">No Image Uploaded</h1>
+        <br>
+        <a
+          href="/uploads"
+          class="btn btn-success"
+          style=""
+          >Click Here To Upload Images</a
+        >
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <% allImages.forEach((images)=>{ %>
+    <div class="col-md-4">
+      <img
+        src="<%= images.imgUrl %> "
+        alt="img-1"
+        class="img-thumbnail"
+        width="250"
+        style="
+          display: block;
+          margin-bottom: 2%;
+          margin-top: 5%;
+          height: 250px !important;
+          border: 2px solid black;
+        "
+      />
+      <form
+        style="display: inline;"
+        action="/delete/<%= images.id %>?_method=DELETE"
+        method="POST"
+      >
+        <input type="hidden" name="_method" value="DELETE" />
+        <button style="cursor: pointer;" type="submit" class="btn btn-danger">
+          Remove
+        </button>
+      </form>
+    </div>
+
+    <% }) %>
+  </div>
+</div>
+<%- include('partials/footer.ejs')%>
